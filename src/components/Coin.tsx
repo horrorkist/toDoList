@@ -110,7 +110,7 @@ function Coin() {
           <ThemeBtn onClick={() => setThemeState((prev) => !prev)}>
             Theme toggle
           </ThemeBtn>
-          <BackBtn onClick={() => navigate("/")}>Go Back</BackBtn>
+          <BackBtn onClick={() => navigate("/coin-tracker")}>Go Back</BackBtn>
         </Buttons>
         {state ? state.coin.name : isLoading ? "Loading" : data?.name}
       </Title>
