@@ -32,15 +32,21 @@ const ThemeBtn = styled.button`
 const CoinList = styled.ul``;
 
 const Coin = styled.div`
-  width: 400px;
-  height: 100px;
-  border-radius: 10px;
+  width: 350px;
+  height: 80px;
+  border-radius: 40px;
   padding: 30px;
   background-color: white;
   font-size: 20px;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
+  border: 1px solid black;
+`;
+
+const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
 `;
 
 interface ICoin {
@@ -73,11 +79,9 @@ function Coins() {
           <CoinList>
             {data?.slice(0, 100).map((coin) => {
               return (
-                <Coin key={coin.id}>
-                  <Link to={`${coin.id}`} state={{ coin }}>
-                    {coin.name}
-                  </Link>
-                </Coin>
+                <StyledLink key={coin.id} to={`${coin.id}`} state={{ coin }}>
+                  <Coin>{coin.name}</Coin>
+                </StyledLink>
               );
             })}
           </CoinList>
