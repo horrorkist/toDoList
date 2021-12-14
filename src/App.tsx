@@ -1,13 +1,9 @@
 import React from "react";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { darkTheme, lightTheme } from "./theme";
-import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
-import Coins from "./components/Coins";
-import Coin from "./components/Coin";
-import { useRecoilValue } from "recoil";
-import { themeState } from "./atoms";
-import Chart from "./components/Chart";
-import Price from "./components/Price";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import { darkTheme } from "./theme";
+import CreateToDo from "./components/CreateToDo";
+import ToDoList from "./components/ToDoList";
+import SelectCategory from "./components/SelectCategory";
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -61,20 +57,34 @@ body {
 }
 `;
 
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+  background-color: #212121;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.div`
+  color: whitesmoke;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+`;
+
 function App() {
-  const isDark = useRecoilValue(themeState);
   return (
-    <ThemeProvider theme={isDark ? lightTheme : darkTheme}>
+    <ThemeProvider theme={darkTheme}>
       <GlobalStyle />
-      <Router>
-        <Routes>
-          <Route path="/coin-tracker" element={<Coins />}></Route>
-          <Route path="/coin-tracker/:coinId/*" element={<Coin />}>
-            <Route path="chart" element={<Chart></Chart>}></Route>
-            <Route path="price" element={<Price></Price>}></Route>
-          </Route>
-        </Routes>
-      </Router>
+      <Wrapper>
+        <Title>To Do List</Title>
+        <SelectCategory></SelectCategory>
+        <CreateToDo></CreateToDo>
+        <ToDoList></ToDoList>
+      </Wrapper>
     </ThemeProvider>
   );
 }
