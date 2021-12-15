@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { CATEGORY, toDoSelector, toDoState } from "../atoms";
+import { categoryState, toDoSelector, toDoState } from "../atoms";
 import { useEffect } from "react";
 
 const Wrapper = styled.div``;
@@ -35,8 +35,9 @@ const Buttons = styled.div`
 function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);
   const [allToDos, setAllToDos] = useRecoilState(toDoState);
+  const [category, setCategory] = useRecoilState(categoryState);
 
-  const onClick = (id: number, category: CATEGORY) => {
+  const onClick = (id: number, category: string) => {
     const targetIndex = allToDos.findIndex((toDo) => toDo.id === id);
     setAllToDos((oldToDos) => {
       return [
@@ -74,21 +75,33 @@ function ToDoList() {
         <ToDo key={toDo.id}>
           <span>{toDo.text}</span>
           <Buttons>
-            {toDo.category !== CATEGORY.TODO ? (
-              <button onClick={() => onClick(toDo.id, CATEGORY.TODO)}>
+            {Object.keys(category).map((element) => {
+              if (toDo.category !== element) {
+                return (
+                  <button
+                    key={element}
+                    onClick={() => onClick(toDo.id, element)}
+                  >
+                    {element}
+                  </button>
+                );
+              }
+            })}
+            {/* {toDo.category !== Categories.ToDo ? (
+              <button onClick={() => onClick(toDo.id, Categories.ToDo)}>
                 To Do
               </button>
             ) : null}
-            {toDo.category !== CATEGORY.DOING ? (
-              <button onClick={() => onClick(toDo.id, CATEGORY.DOING)}>
+            {toDo.category !== Categories.Doing ? (
+              <button onClick={() => onClick(toDo.id, Categories.Doing)}>
                 Doing
               </button>
             ) : null}
-            {toDo.category !== CATEGORY.DONE ? (
-              <button onClick={() => onClick(toDo.id, CATEGORY.DONE)}>
+            {toDo.category !== Categories.Done ? (
+              <button onClick={() => onClick(toDo.id, Categories.Done)}>
                 Done
               </button>
-            ) : null}
+            ) : null} */}
             <button onClick={() => deleteToDo(toDo.id)}>Delete</button>
           </Buttons>
         </ToDo>

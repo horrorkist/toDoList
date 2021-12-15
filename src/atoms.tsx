@@ -1,25 +1,31 @@
 import { atom, selector } from "recoil";
 
-export enum CATEGORY {
-  "TODO",
-  "DOING",
-  "DONE",
+export const Categories = {
+  ToDo: "ToDo",
+  Doing: "Doing",
+  Done: "Done",
+};
+
+export interface ICategory {
+  [key: string]: string;
 }
 
 interface IToDo {
   text: string;
   id: number;
-  category: CATEGORY;
+  category: string;
 }
+
+export const categoryState = atom<ICategory>({
+  key: "categories",
+  default: localStorage.getItem("categories")
+    ? JSON.parse(localStorage.getItem("categories") || "")
+    : Categories,
+});
 
 export const currentBoard = atom({
   key: "board",
-  default: Number(localStorage.getItem("board")) || CATEGORY.TODO,
-});
-
-export const categoryState = atom({
-  key: "categories",
-  default: [],
+  default: localStorage.getItem("board") || Categories.ToDo,
 });
 
 export const toDoState = atom<IToDo[]>({
