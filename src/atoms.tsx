@@ -17,6 +17,11 @@ export const currentBoard = atom({
   default: Number(localStorage.getItem("board")) || CATEGORY.TODO,
 });
 
+export const categoryState = atom({
+  key: "categories",
+  default: [],
+});
+
 export const toDoState = atom<IToDo[]>({
   key: "toDos",
   default:
