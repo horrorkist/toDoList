@@ -17,6 +17,7 @@ const SelectWrapper = styled.div`
   justify-content: center;
   position: relative;
   width: 200px;
+  border: 3px solid white;
 `;
 
 const Label = styled.label`

@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   align-items: center;
   top: 0;
   bottom: 0;
-  right: -200px;
+  right: -500px;
 `;
 
 const Button = styled.div<{ isActive: boolean }>`
